@@ -5,13 +5,14 @@ let h1 = document.querySelector("h1");
 let easyBtn = document.querySelector("#easy");
 let hardBtn = document.querySelector("#hard");
 let message = document.querySelector("#message");
-let div = document.querySelector("#stripe");
-
 var randomNum = 0;
 var rgbColor = undefined;
+var squaresNum = 6;
 
-function random_bg_color() {
-  for (let i = 0; i < square.length; i++) {
+random_bg_color(squaresNum);
+
+function random_bg_color(squares) {
+  for (let i = 0; i < squares; i++) {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
@@ -20,23 +21,15 @@ function random_bg_color() {
     square[i].addEventListener("click", function (e) {
       if (e.target.style.backgroundColor == rgbColor) {
         makeAllSameColor(rgbColor);
-        resetBtn.remove();
-        let playAgainBtn = document.createElement("button");
-        playAgainBtn.innerText = "PLAY AGAIN...";
-        div.appendChild(playAgainBtn);
-        message.innerHTML = "You won";
-       
-        playAgainBtn.addEventListener("click", function () {
-     
-          console.log("clicked");
-        });
+        message.innerText = "You won";
+        resetBtn.innerText = "Play Again"
       } else {
         message.innerHTML = "Try Again";
-        e.target.remove();
+        $(e.target).fadeOut();
       }
     });
   }
-  randomNum = Math.floor(Math.random() * 6);
+  randomNum = Math.floor(Math.random() * squares);
   rgbColor = square[randomNum].style.backgroundColor;
   randomColor.innerHTML = rgbColor;
 }
@@ -48,28 +41,31 @@ function makeAllSameColor(color) {
   }
 }
 
-random_bg_color();
-
-resetBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  random_bg_color();
+resetBtn.addEventListener("click", function () {
+  resetBtn.innerText = "New Colors"
+  resetGame(squaresNum);
 });
+
+function resetGame(squares) {
+  for (i = 0; i < 6; i++) {
+    if (i < squares)
+      square[i].style.display = "block";
+    else square[i].style.display = "none";
+  }
+
+  random_bg_color(squares);
+}
 
 easyBtn.addEventListener("click", function () {
-  for (let i = 0; i < square.length; i++) {
-    for (let x = 0; i < 2; i++) {
-      console.log(square[x]);
-      // random_bg_color();
-      random_bg_color();
-    }
-  }
+  squaresNum = 2;
+  resetGame(squaresNum);
+
 });
 hardBtn.addEventListener("click", function (e) {
-  random_bg_color();
+
+  squaresNum = 6
+  resetGame(squaresNum);
 });
-
-
-
 
 
 
