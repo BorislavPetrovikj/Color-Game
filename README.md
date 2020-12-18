@@ -3,4 +3,4 @@
 <br> <a href="https://borislavpetrovikj.github.io/Brainster-Labs/">See it here</a>
 <br>
 
-<img src="Images/Filtriran proekt.png" height=800 >
+<img src="Screenshot (11).png" height=800 >
